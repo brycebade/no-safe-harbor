@@ -44,3 +44,27 @@ const getShipCells = (ship) => {
 
     return cells
 }
+
+const checkHit = (shot) => {
+    for (const ship of ships) {
+        const isHit = getShipCells(ship).some((cell) => {
+            if (cell.row === shot.row && cell.col === shot.col) {
+                return true
+            } else {
+                return false
+            }
+        })
+
+        if (isHit) {
+            return ship
+        }
+    }
+    
+    return false
+}
+
+const isSunk = (ship) => {
+    return getShipCells(ship).every((cell) => {
+        return hits.some((hit) => hit.row === cell.row && hit.col === cell.col)
+    })
+}
